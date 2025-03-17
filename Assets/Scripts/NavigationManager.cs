@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Linq;
+using UnityEngine.AI;
 using UnityEngine.UIElements;
 
 public class NavigationManager : MonoBehaviour
@@ -23,7 +25,16 @@ public class NavigationManager : MonoBehaviour
     
     public GameObject finishOverlay;
     public GameObject canvas; 
+    
+    [Header("Immersal Path Navigation")]
+    [SerializeField] private GameObject pathPrefab;
+    [SerializeField] private float pathWidth = 0.3f;
+    [SerializeField] private float heightOffset = 0.5f;
 
+    private GameObject pathObject;
+    private Immersal.Samples.Navigation.NavigationPath navigationPath;
+    private Transform playerTransform;
+    
     private List<GameObject> _restrooms = new List<GameObject>();
     private GameObject _location;
     private GameObject _destination;
@@ -56,8 +67,57 @@ public class NavigationManager : MonoBehaviour
                 _restrooms.Add(location);
             }
         }
+        
+        // Immersal Navigation
+        playerTransform = Camera.main?.transform;
+        if (pathPrefab)
+        {
+            pathObject = Instantiate(pathPrefab);
+            pathObject.SetActive(false);
+            navigationPath = pathObject.GetComponent<Immersal.Samples.Navigation.NavigationPath>();
+        }
     }
 
+    private void Update()
+    {
+        if (_path != null)
+        {
+            ShowNavmeshPathToTarget(GetCurrentLocationInPath().GetComponent<Location>().navigationTarget);
+        }
+    }
+
+    public void ShowNavmeshPathToTarget(Immersal.Samples.Navigation.IsNavigationTarget target)
+    {
+        if (target == null || playerTransform == null) return;
+
+        List<Vector3> pathPoints = FindNavmeshPath(playerTransform.position, target.position);
+        if (pathPoints.Count < 2) return;
+
+        navigationPath.GeneratePath(pathPoints, Vector3.up);
+        navigationPath.pathWidth = pathWidth;
+        pathObject.SetActive(true);
+    }
+    
+    public void HideNavmeshPath()
+    {
+        if (pathObject) pathObject.SetActive(false);
+    }
+
+    private List<Vector3> FindNavmeshPath(Vector3 start, Vector3 end)
+    {
+        NavMeshPath path = new NavMeshPath();
+        List<Vector3> points = new List<Vector3>();
+
+        if (NavMesh.CalculatePath(start, end, NavMesh.AllAreas, path))
+        {
+            foreach (var point in path.corners)
+            {
+                points.Add(point + new Vector3(0f, heightOffset, 0f));
+            }
+        }
+        return points;
+    }
+    
     private void BuildAdjacencyList()
     {
         _adjacencyList = new Dictionary<string, List<Edge>>();

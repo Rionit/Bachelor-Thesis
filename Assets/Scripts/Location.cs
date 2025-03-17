@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Immersal.Samples.Navigation;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -26,6 +27,7 @@ public class Location : MonoBehaviour
     public string _name;
     public Types type;
     public UnityEvent<GameObject> locationChange;
+    public IsNavigationTarget navigationTarget;
     public GameObject door;
     private bool _hasDoor;
     public bool isDestination
