@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
 
@@ -27,6 +28,7 @@ public class NavigationManager : MonoBehaviour
     public GameObject canvas; 
     
     [Header("Immersal Path Navigation")]
+    public GameObject testCam;
     [SerializeField] private GameObject pathPrefab;
     [SerializeField] private float pathWidth = 0.3f;
     [SerializeField] private float heightOffset = 0.5f;
@@ -70,6 +72,9 @@ public class NavigationManager : MonoBehaviour
         
         // Immersal Navigation
         playerTransform = Camera.main?.transform;
+#if UNITY_EDITOR
+        playerTransform = testCam.transform;
+#endif
         if (pathPrefab)
         {
             pathObject = Instantiate(pathPrefab);
@@ -82,7 +87,8 @@ public class NavigationManager : MonoBehaviour
     {
         if (_path != null)
         {
-            ShowNavmeshPathToTarget(GetCurrentLocationInPath().GetComponent<Location>().navigationTarget);
+            GameObject nextLocation = GetNextLocationInPath();
+            if (nextLocation != null) ShowNavmeshPathToTarget(nextLocation.GetComponent<Location>().navigationTarget);
         }
     }
 
@@ -205,6 +211,14 @@ public class NavigationManager : MonoBehaviour
     {
         if(_path.Count == 0) return null;
         return First().isForward ? First().edge.a : First().edge.b;
+    }
+
+    private GameObject GetNextLocationInPath()
+    {
+        if (_path.Count < 2) return null; // Check if there is a "next" location
+    
+        var next = _path.First.Next.Value; // Get the second element in the list
+        return next.isForward ? next.edge.a : next.edge.b;
     }
 
     private (Edge edge, bool isForward) First()
