@@ -10072,6 +10072,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Navigation Target
       objectReference: {fileID: 0}
+    - target: {fileID: 5414835429011125150, guid: 42eb4d1475376514cba38965b11157f1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5933293056882735665, guid: 42eb4d1475376514cba38965b11157f1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

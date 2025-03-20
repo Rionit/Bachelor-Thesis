@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [Serializable]
@@ -90,6 +91,8 @@ public class Edge : MonoBehaviour
         {
             arrow.SetActive(true);
         }
+        
+        b.GetComponent<Location>().navigationTarget.gameObject.SetActive(true);
     }
 
     public void ShowBackward()
@@ -98,6 +101,8 @@ public class Edge : MonoBehaviour
         {
             arrow.SetActive(true);
         }
+        
+        a.GetComponent<Location>().navigationTarget.gameObject.SetActive(true);
     }
 
     public void Hide()
@@ -110,6 +115,9 @@ public class Edge : MonoBehaviour
         {
             arrow.SetActive(false);
         }
+        
+        a.GetComponent<Location>().navigationTarget.gameObject.SetActive(false);
+        b.GetComponent<Location>().navigationTarget.gameObject.SetActive(false);
     }
 
     // name of edge changes in Inspector automatically based on locations a and b
