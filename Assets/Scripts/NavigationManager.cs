@@ -25,7 +25,9 @@ public class NavigationManager : MonoBehaviour
     public GameObject exit;
     
     public GameObject finishOverlay;
-    public GameObject canvas; 
+    public GameObject canvas;
+
+    public RobotController robot;
     
     [Header("Immersal Path Navigation")]
     public GameObject testCam;
@@ -177,6 +179,7 @@ public class NavigationManager : MonoBehaviour
         FindPath();
         ShowPath();
         ShowDirections();
+        robot.GoTo(GetNextLocationInPath().transform.position);
     }
 
     private void ShowDirections()
@@ -278,6 +281,10 @@ public class NavigationManager : MonoBehaviour
             FindPath();
             ShowPath();
         }
+
+        var next = GetNextLocationInPath();
+        if (next == null) return;
+        robot.GoTo(next.transform.position);
     }
 
     public void ShowPath()
