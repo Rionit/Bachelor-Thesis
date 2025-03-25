@@ -6,7 +6,7 @@ using TMPro;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class NavigationManager : MonoBehaviour
 {
@@ -28,6 +28,11 @@ public class NavigationManager : MonoBehaviour
     public GameObject canvas;
 
     public RobotController robot;
+
+    [Header("Debug")] 
+    public Toggle arrowsToggle;
+    public Toggle lineToggle;
+    public Toggle robotToggle;
     
     [Header("Immersal Path Navigation")]
     public GameObject testCam;
@@ -90,13 +95,16 @@ public class NavigationManager : MonoBehaviour
         if (_path != null)
         {
             GameObject nextLocation = GetNextLocationInPath();
-            if (nextLocation != null) ShowNavmeshPathToTarget(nextLocation.GetComponent<Location>().navigationTarget);
+            if (nextLocation != null)
+            {
+                ShowNavmeshPathToTarget(nextLocation.GetComponent<Location>().navigationTarget);
+            }
         }
     }
 
     public void ShowNavmeshPathToTarget(Immersal.Samples.Navigation.IsNavigationTarget target)
     {
-        if (target == null || playerTransform == null) return;
+        if (target == null || playerTransform == null || !lineToggle.isOn) return;
 
         List<Vector3> pathPoints = FindNavmeshPath(playerTransform.position, target.position);
         if (pathPoints.Count < 2) return;
@@ -152,6 +160,14 @@ public class NavigationManager : MonoBehaviour
         Debug.Log("Adjacency list built");
     }
 
+    public void ToggleChanged(Toggle toggle)
+    {
+        if (toggle == arrowsToggle && !toggle.isOn) Hide(_path);
+        else if (toggle == arrowsToggle && toggle.isOn) ShowPath();
+        else if (toggle == lineToggle && !toggle.isOn) HideNavmeshPath();
+        else if (toggle == robotToggle) robot.gameObject.SetActive(toggle.isOn);
+    }
+    
     public void LocationChanged(GameObject newLocation)
     {
         //lastLocation = location;
@@ -179,7 +195,11 @@ public class NavigationManager : MonoBehaviour
         FindPath();
         ShowPath();
         ShowDirections();
-        robot.GoTo(GetNextLocationInPath().transform.position);
+
+        if (robotToggle.isOn)
+        {
+            robot.GoTo(GetNextLocationInPath().transform.position);
+        }
     }
 
     private void ShowDirections()
@@ -283,13 +303,13 @@ public class NavigationManager : MonoBehaviour
         }
 
         var next = GetNextLocationInPath();
-        if (next == null) return;
+        if (next == null || !robotToggle.isOn) return;
         robot.GoTo(next.transform.position);
     }
 
     public void ShowPath()
     {
-        if (this._path == null || this._path.Count == 0) return;
+        if (this._path == null || this._path.Count == 0 || !arrowsToggle.isOn) return;
 
         //string path = First().isForward ? First().edge.a.name : First().edge.b.name;
 
