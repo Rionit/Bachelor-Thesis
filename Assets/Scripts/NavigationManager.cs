@@ -238,10 +238,8 @@ public class NavigationManager : MonoBehaviour
 
     private GameObject GetNextLocationInPath()
     {
-        if (_path.Count < 2) return null; // Check if there is a "next" location
-    
-        var next = _path.First.Next.Value; // Get the second element in the list
-        return next.isForward ? next.edge.a : next.edge.b;
+        if(_path.Count == 0) return null;
+        return First().isForward ? First().edge.b : First().edge.a;
     }
 
     private (Edge edge, bool isForward) First()
