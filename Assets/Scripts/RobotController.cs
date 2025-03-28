@@ -51,7 +51,7 @@ public class RobotController : MonoBehaviour
         {
             Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.red, 5);
             Debug.Log(hit.collider.gameObject.name + " was hit!");
-            transform.position = hit.point;
+            agent.Warp(hit.point);
         }
     }
 
