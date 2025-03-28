@@ -133,6 +133,20 @@
             },
             "m_InputSlot": {
                 "m_Node": {
+                    "m_Id": "002d7d97c60a4737835cd876955730c1"
+                },
+                "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "4e292ffa0b7344b483df478e2da81a73"
+                },
+                "m_SlotId": 2
+            },
+            "m_InputSlot": {
+                "m_Node": {
                     "m_Id": "6b993413b6994ffcbfb2d2ce2fa7dd73"
                 },
                 "m_SlotId": 1
@@ -148,20 +162,6 @@
             "m_InputSlot": {
                 "m_Node": {
                     "m_Id": "4e292ffa0b7344b483df478e2da81a73"
-                },
-                "m_SlotId": 0
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
-                    "m_Id": "6b993413b6994ffcbfb2d2ce2fa7dd73"
-                },
-                "m_SlotId": 2
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "002d7d97c60a4737835cd876955730c1"
                 },
                 "m_SlotId": 0
             }
@@ -521,7 +521,7 @@
     "m_Hidden": false,
     "m_ShaderOutputName": "CellDensity",
     "m_StageCapability": 3,
-    "m_Value": 5.0,
+    "m_Value": 8.0,
     "m_DefaultValue": 5.0,
     "m_Labels": []
 }
@@ -2224,10 +2224,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1931.0001220703125,
-            "y": -747.0,
+            "x": -2032.0,
+            "y": -747.0001220703125,
             "width": 208.0,
-            "height": 313.0
+            "height": 313.0000305175781
         }
     },
     "m_Slots": [
