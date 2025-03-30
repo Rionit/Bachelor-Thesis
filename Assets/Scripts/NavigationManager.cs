@@ -195,11 +195,6 @@ public class NavigationManager : MonoBehaviour
         FindPath();
         ShowPath();
         ShowDirections();
-
-        if (robotToggle.isOn)
-        {
-            robot.GoTo(GetNextLocationInPath().transform.position);
-        }
     }
 
     private void ShowDirections()
@@ -230,15 +225,15 @@ public class NavigationManager : MonoBehaviour
         }
     }
 
-    private GameObject GetCurrentLocationInPath()
+    public GameObject GetCurrentLocationInPath()
     {
-        if(_path.Count == 0) return null;
+        if(_path == null || _path.Count == 0) return null;
         return First().isForward ? First().edge.a : First().edge.b;
     }
 
-    private GameObject GetNextLocationInPath()
+    public GameObject GetNextLocationInPath()
     {
-        if(_path.Count == 0) return null;
+        if(_path == null || _path.Count == 0) return null;
         return First().isForward ? First().edge.b : First().edge.a;
     }
 
@@ -299,10 +294,6 @@ public class NavigationManager : MonoBehaviour
             FindPath();
             ShowPath();
         }
-
-        var next = GetNextLocationInPath();
-        if (next == null || !robotToggle.isOn) return;
-        robot.GoTo(next.transform.position);
     }
 
     public void ShowPath()
