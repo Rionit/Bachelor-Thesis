@@ -2,17 +2,24 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class HelperArrow : MonoBehaviour
 {
     public Transform target;
+    public bool useNextLocationAsTarget;
     
     private Image arrow;
     private Camera cam;
     
     private void Start()
     {
+        
+#if !UNITY_EDITOR
+        useNextLocationAsTarget = true;
+#endif
+
         arrow = GetComponent<Image>();
         cam = Camera.main;
     }
@@ -20,6 +27,16 @@ public class HelperArrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (useNextLocationAsTarget)
+        {
+            if (NavigationManager.Instance.robotToggle.isOn)
+                target = NavigationManager.Instance.robot.gameObject.transform;
+            else if(NavigationManager.Instance.arrowsToggle.isOn)
+                target = NavigationManager.Instance.GetNextLocationInPath()?.transform;
+            else if (NavigationManager.Instance.lineToggle.isOn)
+                target = NavigationManager.Instance.GetNextLocationInPath()?.transform;
+        }
+        
         if (target == null) return;
 
         bool visible = IsVisible(target.gameObject);
