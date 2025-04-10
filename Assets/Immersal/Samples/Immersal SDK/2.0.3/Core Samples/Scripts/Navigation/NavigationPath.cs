@@ -22,7 +22,8 @@ namespace Immersal.Samples.Navigation
     public class NavigationPath : MonoBehaviour
     {
         [HideInInspector]
-        public float pathWidth = 0.3f;
+        public float pathWidthMax = 0.3f;
+        public float pathWidthMin = 0.2f;
 
         private float m_StepSize = 0.2f;
         private float m_ResampledStepSize = 0.2f;
@@ -317,14 +318,17 @@ namespace Immersal.Samples.Navigation
             for (int i = 0; i < points.Count; i++)
             {
                 int offset = i * vertsInShape;
+                float t = i / (float)(points.Count - 1); // Progress along path
+                float currentWidth = Mathf.Lerp(pathWidthMax, pathWidthMin, t); // Gradually reduce width
 
                 for (int j = 0; j < vertsInShape; j++)
                 {
                     int id = offset + j;
-                    vertices[id] = matrices[i].MultiplyPoint(shape[j] * pathWidth);
+                    vertices[id] = matrices[i].MultiplyPoint(shape[j] * currentWidth); 
                     uvs[id] = new Vector2(i / (float)edgeLoops * m_PathLength, shapeU[j]);
                 }
             }
+
 
             int ti = 0;
             for (int i = 0; i < segments; i++)

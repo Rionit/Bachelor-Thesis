@@ -198,7 +198,7 @@ namespace Immersal.Samples.Navigation
                         UpdateNavigationUI(m_navigationState);
 
                         m_navigationPath.GeneratePath(corners, m_XRSpace.transform.up);
-                        m_navigationPath.pathWidth = m_pathWidth;
+                        m_navigationPath.pathWidthMax = m_pathWidth;
                     }
                     else
                     {
@@ -219,7 +219,7 @@ namespace Immersal.Samples.Navigation
                         UpdateNavigationUI(m_navigationState);
 
                         m_navigationPath.GeneratePath(corners, m_XRSpace.transform.up);
-                        m_navigationPath.pathWidth = m_pathWidth;
+                        m_navigationPath.pathWidthMax = m_pathWidth;
                     }
                     else
                     {
