@@ -15,7 +15,7 @@
 			Tags
 			{
 				"RenderType" = "Transparent"
-				"Queue" = "Transparent"
+				"Queue" = "Geometry+1"
 				"IgnoreProjector" = "True"
 			}
 
