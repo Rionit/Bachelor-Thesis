@@ -84,7 +84,7 @@ public class NavigationManager : MonoBehaviour
         if (_path != null)
         {
             GameObject nextLocation = GetNextLocationInPath();
-            if (nextLocation != null)
+            if (nextLocation != null && lineToggle.isOn)
             {
                 lineNear.ShowFromAToB(camera, nextLocation.GetComponent<Location>().navigationTarget.gameObject);
                 lineFar.ShowFromAToB(GetNextLocationInPath().gameObject, _destination.gameObject);
