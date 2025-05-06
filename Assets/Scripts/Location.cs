@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Immersal.Samples.Navigation;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -25,6 +26,7 @@ public class Location : MonoBehaviour
         };
 
     public string _name;
+    public TextMeshPro label;
     public Types type;
     public UnityEvent<GameObject> locationChange;
     public IsNavigationTarget navigationTarget;
@@ -47,10 +49,12 @@ public class Location : MonoBehaviour
     {
         gameObject.name = _name;
         door.SetActive(((type & Types.ROOM) != 0 || (type & Types.WC) != 0));
+        label.text = (type & Types.WC) != 0 ? "WC" : _name;
     }
     
     private void Start()
     { 
+        label.text = (type & Types.WC) != 0 ? "WC" : _name;
         isDestination = false;
     }
     

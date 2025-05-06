@@ -7,19 +7,14 @@ using UnityEngine.UI;
 
 public class HelperArrow : MonoBehaviour
 {
-    public Transform target;
-    public bool useNextLocationAsTarget;
+    public Transform capsule;
     
+    private Transform target;
     private Image arrow;
     private Camera cam;
     
     private void Start()
     {
-        
-#if !UNITY_EDITOR
-        useNextLocationAsTarget = true;
-#endif
-
         arrow = GetComponent<Image>();
         cam = Camera.main;
     }
@@ -27,20 +22,22 @@ public class HelperArrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (useNextLocationAsTarget)
+        if (NavigationManager.Instance.robotToggle.isOn)
+            target = NavigationManager.Instance.robot.gameObject.transform;
+        else if (NavigationManager.Instance.lineToggle.isOn)
+            target = capsule;
+        else if (NavigationManager.Instance.arrowsToggle.isOn)
+            target = capsule;
+        else
         {
-            if (NavigationManager.Instance.robotToggle.isOn)
-                target = NavigationManager.Instance.robot.gameObject.transform;
-            else if(NavigationManager.Instance.arrowsToggle.isOn)
-                target = NavigationManager.Instance.GetNextLocationInPath()?.transform;
-            else if (NavigationManager.Instance.lineToggle.isOn)
-                target = NavigationManager.Instance.GetNextLocationInPath()?.transform;
+            target = null;
+            arrow.enabled = false;
         }
         
         if (target == null) return;
 
         bool visible = IsVisible(target.gameObject);
-        arrow.enabled = !visible;
+        arrow.enabled = NavigationManager.Instance.HasDestination() && !visible;
 
         if (!visible)
         {
@@ -57,12 +54,12 @@ public class HelperArrow : MonoBehaviour
 
             // TODO: check if this still works for weird ratio phone screens
             float padTop = 650f;
-            float padBottom = 650f;
+            float padBottom = 700f;
             float padSide = 100f;
             Vector3 edgePos = screenCenter + dir * ((Screen.height / 2f) - padSide); // Push to the edge of screen
             // then clamp it to the "visible area"
             edgePos.x = Mathf.Clamp(edgePos.x, padSide, Screen.width - padSide);
-            edgePos.y = Mathf.Clamp(edgePos.y, padTop, Screen.height - padBottom);
+            edgePos.y = Mathf.Clamp(edgePos.y, padBottom, Screen.height - padTop);
             arrow.rectTransform.position = edgePos;
 
             // Rotate arrow to point toward the target

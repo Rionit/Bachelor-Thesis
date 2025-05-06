@@ -24,12 +24,25 @@ public class RobotController : MonoBehaviour
 
     private void Update()
     {
-        if (agent.remainingDistance <= agent.stoppingDistance)
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0); 
+
+        if (!stateInfo.IsTag("Transitioning")) 
         {
-            if (!agent.hasPath || agent.velocity.sqrMagnitude == 0f)
+            if (agent.velocity == Vector3.zero && agent.remainingDistance <= agent.stoppingDistance)
             {
-                // Destination reached
-                animator.SetTrigger("TrStop");
+                if (!stateInfo.IsName("Idle")) 
+                {
+                    animator.ResetTrigger("TrDrive");
+                    animator.SetTrigger("TrStop");
+                }
+            }
+            else
+            {
+                if (!stateInfo.IsName("Armature|Drive")) 
+                {
+                    animator.ResetTrigger("TrStop");
+                    animator.SetTrigger("TrDrive");
+                }
             }
         }
 
@@ -64,7 +77,7 @@ public class RobotController : MonoBehaviour
             }
 
             Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.red, 5);
-            Debug.Log(hit.collider.gameObject.name + " was hit!");
+            // Debug.Log(hit.collider.gameObject.name + " was hit!");
             agent.Warp(hit.point);
         }
     }
@@ -73,13 +86,11 @@ public class RobotController : MonoBehaviour
     {
         agent.isStopped = false;
         agent.SetDestination(destination);
-        animator.SetTrigger("TrDrive");
     }
 
     public void Stop()
     {
         agent.isStopped = true;
-        animator.SetTrigger("TrStop");
     }
     
 }

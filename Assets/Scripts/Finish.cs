@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,15 +6,20 @@ using UnityEngine.Video;
 
 public class Finish : MonoBehaviour
 {
-    public VideoPlayer video;
-    
-    void Start()
+    public ParticleSystem particles;
+
+    private void Start()
     {
-        video.loopPointReached += EndReached;
+        Canvas canvas = GetComponent<Canvas>();
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        canvas.worldCamera = Camera.main;
     }
 
-    void EndReached(VideoPlayer vp)
+    private void Update()
     {
-        Destroy(gameObject);
+        if (!particles.IsAlive())
+        {
+            Destroy(gameObject);
+        }
     }
 }

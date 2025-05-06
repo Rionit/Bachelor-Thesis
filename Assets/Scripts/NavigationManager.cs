@@ -170,7 +170,7 @@ public class NavigationManager : MonoBehaviour
         } else if(_path.Count == 0)
         {
             directionsText.text = "";
-            Instantiate(finishOverlay, canvas.transform);
+            Instantiate(finishOverlay, gameObject.transform);
             return;
         }
 
@@ -206,6 +206,11 @@ public class NavigationManager : MonoBehaviour
         return _path.First.Value;
     }
 
+    public bool HasDestination()
+    {
+        return _destination != null;
+    }
+    
     public void ChangeDestination(GameObject location)
     {
         // destinations.value = destinations.options.FindIndex(option => option.text == location.name);

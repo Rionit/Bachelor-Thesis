@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.coffee.ui-particle": "https://github.com/mob-sakai/ParticleEffectForUGUI.git",
     "com.immersal.core": "https://github.com/immersal/imdk-unity.git",
     "com.unity.collab-proxy": "2.5.1",
     "com.unity.device-simulator.devices": "1.0.0",
