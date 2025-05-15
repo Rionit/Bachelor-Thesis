@@ -9,7 +9,8 @@
 
 1. Otevřete projekt.
 2. Přejděte do *File > Build Settings*. 
-	1. Vyberte platformu **Android** nebo **iOS** a klikněte na **Switch Platform**. Zkontrolujte, že je zaškrtnutá pouze scéna *Scenes/Main*.
+	1. Vyberte platformu **Android** nebo **iOS** a klikněte na **Switch Platform**.
+ 	2. Zkontrolujte, že je zaškrtnutá pouze scéna *Scenes/Main*.
 
 #### Android
 
