@@ -1,3 +1,12 @@
+/*
+ * Author: Filip Doležal
+ * Date: 18.1.2025
+ * 
+ * Description: Category in custom dropdown menu. Populates itself
+ *              with Locations that have the same type as this category.
+ *              
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -14,6 +23,8 @@ public class Category : MonoBehaviour
 
     void Start()
     {
+        if (navigationManager == null) navigationManager = NavigationManager.Instance;
+        
         // Get all locations with the right type for this category
         foreach(GameObject location in navigationManager.locations){
             if((location.GetComponent<Location>().type & type) != 0){

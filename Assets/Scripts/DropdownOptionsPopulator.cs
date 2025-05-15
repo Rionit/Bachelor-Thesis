@@ -1,3 +1,12 @@
+/*
+ * Author: Filip Doležal
+ * Date: 25.10.2024
+ * 
+ * Description: Populates dropdown with locations. Deprecated, was used for simple
+ *              dropdown during Semestral project testing.
+ *              
+ */
+
 using TMPro;
 using UnityEngine;
 

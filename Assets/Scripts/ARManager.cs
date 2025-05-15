@@ -1,3 +1,11 @@
+/*
+ * Author: Filip Doležal
+ * Date: 12.10.2024
+ * 
+ * Description: Calculates time of localization and handles some UI stuff 
+ *              
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;

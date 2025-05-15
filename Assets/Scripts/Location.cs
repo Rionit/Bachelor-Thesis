@@ -1,3 +1,13 @@
+/*
+ * Author: Filip Doležal
+ * Date: 4.11.2024
+ * 
+ * Description: Location. Can be as destination or just a Location
+ *              which the user has to go through. Can have multiple
+ *              types and has a door when it is a room.
+ *              
+ */
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

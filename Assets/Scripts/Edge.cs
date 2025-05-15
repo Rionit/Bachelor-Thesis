@@ -1,3 +1,12 @@
+/*
+ * Author: Filip Doležal
+ * Date: 25.10.2024
+ * 
+ * Description: Edge between two Locations in graph. Path to/from
+ *              Location A from/to Location B. Contains instructions.
+ *              
+ */
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

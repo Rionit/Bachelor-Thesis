@@ -1,3 +1,11 @@
+/*
+ * Author: Filip Doležal
+ * Date: 24.3.2025
+ * 
+ * Description: Handles the robot and its placement on screen touch.
+ *              
+ */
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,6 +36,7 @@ public class RobotController : MonoBehaviour
 
         if (!stateInfo.IsTag("Transitioning")) 
         {
+            // If moving, play drive animation
             if (agent.velocity == Vector3.zero && agent.remainingDistance <= agent.stoppingDistance)
             {
                 if (!stateInfo.IsName("Idle")) 
@@ -36,6 +45,7 @@ public class RobotController : MonoBehaviour
                     animator.SetTrigger("TrStop");
                 }
             }
+            // Otherwise be idle and stop
             else
             {
                 if (!stateInfo.IsName("Armature|Drive")) 
@@ -46,15 +56,18 @@ public class RobotController : MonoBehaviour
             }
         }
 
+        // MOUSE
         if (Input.GetMouseButton(0))
         {
             RaycastPosition(Input.mousePosition);
         }
+        // TOUCH
         else if (Input.touchCount > 0)
         {
             RaycastPosition(Input.GetTouch(0).position);
         }
 
+        // Next location
         GameObject next = NavigationManager.Instance.GetNextLocationInPath();
         if (next != null && agent.destination != next.transform.position) GoTo(next.transform.position);
     }

@@ -1,3 +1,11 @@
+/*
+ * Author: Filip Doležal
+ * Date: 18.1.2025
+ * 
+ * Description: Handles particle system when user arrives to destination
+ *              
+ */
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

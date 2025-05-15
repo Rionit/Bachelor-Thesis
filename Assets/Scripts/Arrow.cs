@@ -1,3 +1,13 @@
+/*
+ * Author: Filip Doležal
+ * Date: 28.4.2025
+ * 
+ * Description: Handles the size when the arrow is far from the user
+ *              It gets progressively smaller
+ *              
+ */
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

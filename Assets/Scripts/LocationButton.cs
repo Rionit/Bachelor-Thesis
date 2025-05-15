@@ -1,3 +1,11 @@
+/*
+ * Author: Filip Doležal
+ * Date: 18.1.2025
+ * 
+ * Description: One element in Category. Changes destination to its Location when clicked.
+ *              
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;

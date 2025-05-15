@@ -1,3 +1,13 @@
+/*
+ * Author: Filip Doležal
+ * Date: 25.10.2024
+ * 
+ * Description: Main script that calculates and updates the path to destination,
+ *              handles location change events,
+ *              turns visualization of navigation methods on/off
+ */
+
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

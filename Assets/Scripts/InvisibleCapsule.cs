@@ -1,3 +1,14 @@
+/*
+ * Author: Filip Doležal
+ * Date: 13.4.2025
+ * 
+ * Description: Handles the invisible capsule, that is used for
+ *              helper arrow, so that it has something to point at.
+ *              It automatically adjusts to the position based on
+ *              the position of the user.
+ *              
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

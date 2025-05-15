@@ -1,3 +1,13 @@
+/*
+ * Author: Filip Doležal
+ * Date: 8.4.2025
+ * 
+ * Description: Handles position and orientation of the helper arrow
+ *              for objects that are off-screen
+ *              
+ */
+
+
 using System;
 using System.Collections;
 using System.Collections.Generic;

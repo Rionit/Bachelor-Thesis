@@ -1,3 +1,12 @@
+/*
+ * Author: Filip Doležal
+ * Date: 2.12.2024
+ * 
+ * Description: Deprecated, was used to show debug messages. Now it has been replaced
+ *              with Simple Debug Console plugin for its better UI.
+ *              
+ */
+
 using System;
 using TMPro;
 using UnityEngine;
