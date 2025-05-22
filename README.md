@@ -1,3 +1,5 @@
+Projekt si prosím naklonujte. Pouhé stažení přes .zip z nějakého důvodu zmenší velikost některých souborů a projekt pak nelze otevřít.
+
 ## Build
 
 ### Prerekvizity pro Build
