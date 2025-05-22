@@ -129,5 +129,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   referenceDistance: 1
-  referenceScale: 0.15
+  maxScale: 0.1
   minScale: 0

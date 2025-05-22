@@ -35,14 +35,14 @@ public class Location : MonoBehaviour
         STAIRS = 1 << 10
         };
 
-    public string _name;
-    public TextMeshPro label;
-    public Types type;
-    public UnityEvent<GameObject> locationChange;
-    public IsNavigationTarget navigationTarget;
-    public GameObject door;
-    private bool _hasDoor;
-    public bool isDestination
+    public string _name;                            // name of the location
+    public TextMeshPro label;                       // text shown on door
+    public Types type;                              // type(s) of the location
+    public UnityEvent<GameObject> locationChange;   // when user enters this location
+    public IsNavigationTarget navigationTarget;     // for streamline
+    public GameObject door;                         // door prefab
+    private bool _hasDoor;                          // if this location has a door
+    public bool isDestination                       // if it currently is selected as destination (to hide/show door) 
     {
         get
         {
@@ -55,6 +55,7 @@ public class Location : MonoBehaviour
         }
     }
 
+    // Automatically set name of the gameobject in hierarchy in editor andd hide/show door
     void OnValidate()
     {
         gameObject.name = _name;
@@ -68,10 +69,10 @@ public class Location : MonoBehaviour
         isDestination = false;
     }
     
+    // User has entered the location
     private void OnTriggerEnter(Collider other) {
         if(other.CompareTag("MainCamera") || other.CompareTag("EditorOnly")) {
             locationChange.Invoke(gameObject);
         }
     }
-
 }

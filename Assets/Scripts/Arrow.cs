@@ -14,11 +14,11 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-    private GameObject camera;
+    private GameObject camera; // To calculate distance from arrow to user
 
     // Settings
-    public float referenceDistance = 1f;
-    public float referenceScale = 0.15f;
+    public float referenceDistance = 1f; // From what distance does the arrow begin to shrink
+    public float maxScale = 0.1f; // Default and maximum scale of the arrow
     public float minScale = 0.0f;
 
     void Start()
@@ -34,7 +34,7 @@ public class Arrow : MonoBehaviour
 
         // Scale calculation
         float scaleFactor = referenceDistance / distance;
-        scaleFactor = Mathf.Clamp(scaleFactor, minScale, referenceScale);
+        scaleFactor = Mathf.Clamp(scaleFactor, minScale, maxScale);
 
         transform.localScale = Vector3.one * scaleFactor;
     }

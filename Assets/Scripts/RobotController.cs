@@ -72,6 +72,7 @@ public class RobotController : MonoBehaviour
         if (next != null && agent.destination != next.transform.position) GoTo(next.transform.position);
     }
 
+    // Find a position on the ground using Raycast and warp the robot there
     private void RaycastPosition(Vector3 screenPosition)
     {
         Ray ray = cam.ScreenPointToRay(screenPosition);

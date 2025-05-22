@@ -18,8 +18,8 @@ using UnityEngine.InputSystem;
 
 public class InvisibleCapsule : MonoBehaviour
 {
-    public float maxDistance = 3f;
-    public float normalDistance = 2.0f;
+    public float maxDistance = 3f;      // Maximum distance from user
+    public float normalDistance = 2.0f; // Normal distance from user the capsule should be at
     
     private NavMeshAgent agent;
     private Camera cam;
@@ -39,7 +39,7 @@ public class InvisibleCapsule : MonoBehaviour
         
         var distanceToUser = Vector3.Distance(cam.transform.position, transform.position);
         var distanceToDestination = Vector3.Distance(transform.position, agent.destination);
-        var distanceOfUserToDestination = Vector3.Distance(cam.transform.position, agent.destination);;
+        var distanceOfUserToDestination = Vector3.Distance(cam.transform.position, agent.destination);
         
         // if too far from player, go back
         if (distanceToUser >= maxDistance) GoTo(cam.transform.position);

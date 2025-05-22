@@ -26,16 +26,16 @@ public class NavigationManager : MonoBehaviour
     [Header("Setup")]
     //[Tooltip("Dropdown containing all possible destinations and the currently selected one.")]
     // public TMP_Dropdown destinations;
-    public GameObject destinationsMenu;
-    public GameObject destinationBtn;
-    public TextMeshProUGUI destinationText;
-    public TextMeshProUGUI directionsText;
-    public GameObject[] locations;
-    public Edge[] edges;
-    public GameObject exit;
+    public GameObject destinationsMenu;     // Menu containing all destinations, is categorized
+    public GameObject destinationBtn;       // Button which opens the menu
+    public TextMeshProUGUI destinationText; // Text showing the name of the destination
+    public TextMeshProUGUI directionsText;  // Text showing directions to next location in path
+    public GameObject[] locations;          // All existing locations
+    public Edge[] edges;                    // All existing edges
+    public GameObject exit;                 // Exit location
     
-    public GameObject finishOverlay;
-    public GameObject canvas;
+    public GameObject finishOverlay;        // Prefab that instantiates when user gets to finish
+    public GameObject canvas;               
 
     public RobotController robot;
 
@@ -45,18 +45,18 @@ public class NavigationManager : MonoBehaviour
     public Toggle robotToggle;
     
     [Header("Immersal Path Navigation")]
-    public GameObject testCam;
+    public GameObject testCam;  // Used for testing
     public Streamline lineNear;
     public Streamline lineFar;
     
-    private GameObject camera;
+    private GameObject camera; // user camera
     private List<GameObject> _restrooms = new List<GameObject>();
-    private GameObject _location;
-    private GameObject _destination;
+    private GameObject _location;   // current location
+    private GameObject _destination;// current destination
     //private string lastLocation;
 
     private LinkedList<(Edge edge, bool isForward)> _path; // Tuple to store Edge and direction
-    private Dictionary<string, List<Edge>> _adjacencyList;
+    private Dictionary<string, List<Edge>> _adjacencyList; 
 
     private void Awake()
     {
@@ -75,6 +75,7 @@ public class NavigationManager : MonoBehaviour
         BuildAdjacencyList();
         Hide(edges);
 
+        // Gather all restroom locations into a list
         foreach (GameObject location in locations)
         {
             if ((location.GetComponent<Location>().type & Location.Types.WC) != 0)
@@ -93,6 +94,7 @@ public class NavigationManager : MonoBehaviour
     {
         if (_path != null)
         {
+            // Update streamlines
             GameObject nextLocation = GetNextLocationInPath();
             if (nextLocation != null && lineToggle.isOn)
             {
@@ -102,6 +104,7 @@ public class NavigationManager : MonoBehaviour
         }
     }
     
+    // Dictionary of "What edges am I connected to" for each location
     private void BuildAdjacencyList()
     {
         _adjacencyList = new Dictionary<string, List<Edge>>();
@@ -128,6 +131,7 @@ public class NavigationManager : MonoBehaviour
         Debug.Log("Adjacency list built");
     }
 
+    // Check what toggle changed and update its navigation method accordingly
     public void ToggleChanged(Toggle toggle)
     {
         if (toggle == arrowsToggle && !toggle.isOn) Hide(_path);
@@ -136,12 +140,14 @@ public class NavigationManager : MonoBehaviour
         else if (toggle == robotToggle) robot.gameObject.SetActive(toggle.isOn);
     }
 
+    // Hide streamlines
     private void HideLines()
     {
         lineNear.HideNavmeshPath();
         lineFar.HideNavmeshPath();
     }
     
+    // When user has come to a new location
     public void LocationChanged(GameObject newLocation)
     {
         //lastLocation = location;
@@ -151,17 +157,18 @@ public class NavigationManager : MonoBehaviour
         ShowDirections();
     }
 
+    // When user selects a new destination
     public void DestinationChanged(string newDestination)
     {
         // string destName = destinations.options[destinations.value].text;
 
-        if(_destination != null) _destination.GetComponent<Location>().isDestination = false;
-        _destination = locations.FirstOrDefault(x => x.name == newDestination);
-        _destination.GetComponent<Location>().isDestination = true;
+        if(_destination != null) _destination.GetComponent<Location>().isDestination = false; // disable last
+        _destination = locations.FirstOrDefault(x => x.name == newDestination);       // Find the location
+        _destination.GetComponent<Location>().isDestination = true;                             // set the new
 
-        destinationText.text = newDestination;
-        destinationBtn.SetActive(true);
-        destinationsMenu.SetActive(false);
+        destinationText.text = newDestination;  // Update destination text
+        destinationBtn.SetActive(true);         // Show destination menu button
+        destinationsMenu.SetActive(false);      // Hide destination menu
         
         Debug.Log("Current destination: " + _destination.name);
         
@@ -171,6 +178,7 @@ public class NavigationManager : MonoBehaviour
         ShowDirections();
     }
 
+    // Show text directions
     private void ShowDirections()
     {
         if (_path == null)
@@ -187,14 +195,15 @@ public class NavigationManager : MonoBehaviour
         directionsText.text = First().isForward ? First().edge.fromAToB : First().edge.fromBToA;
     }
 
+    // Multipurpose function to hide edges
     public void Hide(IEnumerable what)
     {
         if (what == null) return;
 
         foreach (var edge in what)
         {
-            if (edge is Edge e) e.Hide();
-            else if (edge is (Edge _e, bool _)) _e.Hide();
+            if (edge is Edge e) e.Hide();                   // Here edge is just Edge
+            else if (edge is (Edge _e, bool _)) _e.Hide();  // Here it is in a tuple
             else return;
         }
     }
@@ -211,6 +220,7 @@ public class NavigationManager : MonoBehaviour
         return First().isForward ? First().edge.b : First().edge.a;
     }
 
+    // First edge in path, returns a tuple
     private (Edge edge, bool isForward) First()
     {
         return _path.First.Value;
@@ -227,7 +237,7 @@ public class NavigationManager : MonoBehaviour
         DestinationChanged(location.name);
     }
 
-    // Šlo by předělat BFS, že by mohl hledat i čistě podle Typu lokace
+    // Could be remade so that it just searches using type and BFS
     public void FindNearestRestroom()
     {
         if (_restrooms.Contains(locations.FirstOrDefault(loc => loc == _destination))) return;

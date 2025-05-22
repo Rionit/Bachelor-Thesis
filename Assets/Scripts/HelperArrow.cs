@@ -17,11 +17,11 @@ using UnityEngine.UI;
 
 public class HelperArrow : MonoBehaviour
 {
-    public Transform capsule;
+    public Transform capsule;   // Invisible capsule to point at, it is always closer to destination than user
     
-    private Transform target;
-    private Image arrow;
-    private Camera cam;
+    private Transform target;   // Which object the arrow is supposed to point at
+    private Image arrow;        // The image of the arrow
+    private Camera cam;         // To get screen positions of objects
     
     private void Start()
     {
@@ -32,6 +32,7 @@ public class HelperArrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Target setup
         if (NavigationManager.Instance.robotToggle.isOn)
             target = NavigationManager.Instance.robot.gameObject.transform;
         else if (NavigationManager.Instance.lineToggle.isOn)
@@ -52,7 +53,7 @@ public class HelperArrow : MonoBehaviour
         if (!visible)
         {
             Vector3 screenCenter = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
-            Vector3 screenPos = cam.WorldToScreenPoint(target.position);
+            Vector3 screenPos = cam.WorldToScreenPoint(target.position); // screen position of the target
 
             // It can be behind the camera, so we get rid of that issue
             if (screenPos.z < 0)
@@ -60,9 +61,9 @@ public class HelperArrow : MonoBehaviour
                 screenPos *= -1;
             }
 
+            // Direction from center to screen position
             Vector3 dir = (screenPos - screenCenter).normalized;
 
-            // TODO: check if this still works for weird ratio phone screens
             float padTop = 650f;
             float padBottom = 700f;
             float padSide = 100f;

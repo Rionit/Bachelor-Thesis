@@ -17,13 +17,13 @@ using UnityEngine;
 public class Edge : MonoBehaviour
 {
     [Header("Locations")]
-    public GameObject a; 
-    public GameObject b;
+    public GameObject a;    // Location A 
+    public GameObject b;    // Location B
     [Space(10)]
 
     [Header("Text Directions")]
-    [TextArea] public string fromAToB;
-    [TextArea] public string fromBToA;
+    [TextArea] public string fromAToB;  // Directions from location A to location B
+    [TextArea] public string fromBToA;  // Directions from location B to location A
     [Space(10)]
 
     [Header("Path of Edge")]
