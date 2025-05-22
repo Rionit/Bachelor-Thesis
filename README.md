@@ -1,3 +1,5 @@
+## Build
+
 ### Prerekvizity pro Build
 
 - Unity verze **2022.3.48f1**. 
@@ -37,6 +39,18 @@
 Doporučujeme v případech, kdy nějaký krok nefunguje, nejprve vysunout a zasunout USB kabel. V případě chyby ***Command PhaseScriptExecution failed with a nonzero exit code*** v našem případě zafungovalo nejprve odškrtnout a zaškrtnout **Development Build** a opětovný Build v Unity (případně zkusit i Build "na prázdno" s odškrtnutým políčkem nebo přepnout na Android platformu a zase zpátky).
 
 Po otevření Unity projektu doporučuji vypnout viditelnost objektu "GLB mesh".
+
+### Návod pro použití aplikace
+
+Doporučujeme iniciální spuštění aplikace provést na hlavním schodišti. Jedná se o místo, odkud začínají zmíněná videa ukázek jednotlivých navigací. 
+
+Po spuštění aplikace povolte přístup ke kameře telefonu a poté začněte lokalizovat. Směřujte pomalu vaším zařízením do různých částí místnosti, kde se nacházíte. Můžete se lehce posunout, abyste  změnili úhel pohledu. Jakmile proběhne párkrát svícení okraje obrazovky, nebo pokud již v dolní části aplikace vidíte správný název lokace, můžete přejít k vybrání destinace. Tu zvolíte stisknutím horního tlačítka a následným proklikáním do odpovídající kategorie. 
+
+Poté zvolte jednu či více typů navigace stisknutím odpovídajícího červeného tlačítka. Pro otevření debug konzole táhněte třemi prsty směrem dolů. V případě ztráty lokalizace, velkého driftu nebo nezarovnání objektů opakujte lokalizační proces nebo se případně zkuste vrátit zpátky.
+
+Doporučujeme zkusit následující lokace: Hlavní schodiště, jakékoliv patro, KN:E-327, KN:E-301, KN:E-230 a sál u bufetu. Ostatní lokace nemáme kvalitně naskenovány a nezaručujeme funkčnost lokalizace.
+
+## Ukázky
 
 ### Ukázka renderů mračen bodů a GLB objektu budovy E
 
