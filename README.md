@@ -1,5 +1,7 @@
 Projekt si prosím naklonujte. Pouhé stažení přes .zip z nějakého důvodu zmenší velikost některých souborů a projekt pak nelze otevřít.
 
+Při spuštění Unity projektu otevřete scénu Main ve složce Scenes a doporučujeme vypnout viditelnost objektu "XR Space → GLB mesh".
+
 ## Build
 
 ### Prerekvizity pro Build
